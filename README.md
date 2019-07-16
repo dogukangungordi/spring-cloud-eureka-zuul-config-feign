@@ -9,3 +9,4 @@ School Client (Feign -> Student Client) = http://localhost:9098//getSchoolDetail
 Zuul : http://localhost:8762/
 Zuul -> Student Client = http://localhost:8762/student-service/greeting
 Zuul -> School Client(Feign ->Student Client) = http://localhost:8762/school-service/get-greeting
+
