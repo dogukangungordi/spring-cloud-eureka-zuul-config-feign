@@ -8,17 +8,13 @@ import com.example.configServerStudentClient.springcloudconfigstudentclient.enti
 import com.netflix.discovery.EurekaClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.core.env.Environment;
 
 
-
+@RefreshScope
 @RestController
 public class StudentServiceController implements  GreetingController{
 
@@ -28,6 +24,14 @@ public class StudentServiceController implements  GreetingController{
     @Autowired
     @Lazy
     private EurekaClient eurekaClient;
+
+    @Value("${app.service-name}")
+    private String serviceName;
+
+    @GetMapping("/service")
+    public String getServiceName() {
+        return "service name [" + this.serviceName + "]";
+    }
 
     private static Map<String, List<Student>> schooDB = new HashMap<String, List<Student>>();
 
